@@ -1,0 +1,16 @@
+<div *ngIf="user">
+    <mat-card>
+        <mat-card-title>{{ user.name || user.login }}</mat-card-title>
+        <mat-card-content>
+            <p>{{ user.bio }}</p>
+            <p>Followers: {{ user.followers }}</p>
+            <p>Repositories: {{ repos.length }}</p>
+        </mat-card-content>
+    </mat-card>
+
+    <h3>Repositories</h3>
+    <!-- <app-repo-list [repos]="repos"></app-repo-list> -->
+
+    <h3>Followers</h3>
+    <!-- <app-follower-count [followers]="followers.length"></app-follower-count> -->
+</div>

@@ -1,0 +1,38 @@
+.search-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.logo-image {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.search-bar {
+    width: 100%;
+}
+
+.results-container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-card {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    text-align: left;
+}
