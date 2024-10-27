@@ -1,6 +1,11 @@
+# projectSetup
+node should be installed.
+npm install -g @angular/cli [if Angular vedio is not setup]
+npm i
+
 # GithubUserSearch
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
+This project was created using [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2. This project simply allows us to search for github users by username. We will be able to present whatever public information is available for that particular person. 
 
 ## Development server
 
