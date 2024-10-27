@@ -15,7 +15,7 @@
     <div class="profile-details">
       <h2>{{ user?.name || 'Name not available' }}</h2>
       <p class="position-info">
-        {{ user?.position ? (user.position + ' at ' + user.company) : 'Position information not available' }}
+        {{ user?.company ? user.company  : 'Position information not available' }}
       </p>
       <p class="location-info">
         {{ user?.location || 'Location not available' }}
