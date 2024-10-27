@@ -1,5 +1,6 @@
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 <div class="table-container">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z1" *ngIf="!errorMessage">
     <!-- Repo Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Repo Name </th>

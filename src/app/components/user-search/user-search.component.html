@@ -1,16 +1,18 @@
 <div class="search-page">
+
+    <h3 class="Project-title">Github User Search</h3>
     <img src="assets/logo.png" alt="Logo" class="logo-image" />
 
     <!-- Search Bar with Disabled Icon on Empty Input -->
     <div class="search-container">
         <mat-form-field appearance="outline" class="search-bar">
             <mat-label>Search GitHub Username</mat-label>
-            <input matInput [(ngModel)]="username" placeholder="Enter GitHub username" (keyup.enter)="onSearch()"/>
+            <input matInput [(ngModel)]="username" placeholder="Enter GitHub username" (keyup.enter)="onSearch()" />
 
             <!-- Cancel icon to clear input -->
-        <button *ngIf="username" mat-icon-button matSuffix (click)="clearInput()">
-            <mat-icon>clear</mat-icon>
-        </button>
+            <button *ngIf="username" mat-icon-button matSuffix (click)="clearInput()">
+                <mat-icon>clear</mat-icon>
+            </button>
 
             <button mat-icon-button matSuffix (click)="onSearch()" [disabled]="!username">
                 <mat-icon>search</mat-icon>
@@ -61,14 +63,14 @@
                         <div class="info-value">{{ result.location || 'N/A' }}</div>
                     </div>
                     <div class="user-info see-details">
-                        <div class="icon-item" (click)="viewProfile(result.login)">
+                        <div class="icon-item" (click)="viewProfileDetails()">
                             <mat-icon>pageview</mat-icon>
                             <span>view-details</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </mat-card>
     </div>
 

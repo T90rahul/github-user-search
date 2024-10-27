@@ -25,10 +25,10 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './user-search.component.html',
-  styleUrls: ['./user-search.component.scss']
+  styleUrls: ['./user-search.component.scss'],
 })
 export class UserSearchComponent {
   username: string = '';
@@ -55,7 +55,9 @@ export class UserSearchComponent {
 
   onSearch() {
     if (!this.username.trim()) {
-      this.snackBar.open('Please enter a GitHub username to search.', 'Close', { duration: 3000 });
+      this.snackBar.open('Please enter a GitHub username to search.', 'Close', {
+        duration: 3000,
+      });
       return;
     }
     this.fetchData();
@@ -70,27 +72,29 @@ export class UserSearchComponent {
       },
       error: () => {
         this.showLoader = false;
-        this.snackBar.open('User not found or an error occurred', 'Close', { duration: 3000 });
-      }
+        this.snackBar.open('User not found or an error occurred', 'Close', {
+          duration: 3000,
+        });
+      },
     });
   }
 
-
-  viewProfile(username: string) {
+  viewProfileDetails() {
     const dialogRef = this.dialog.open(UserProfileComponent, {
-      width: '80vw',   // Set dialog width to 80% of the viewport width
-      maxWidth: '800px',  // Maximum width for larger screens
-      maxHeight: '600px',  // Maximum height for larger screens
-      data: this.searchResults[0]
+      width: '80vw',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      data: this.searchResults[0],
+      disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog closed');
     });
   }
 
   clearInput() {
-    this.username = '';  // Clear the input model
+    this.username = ''; // Clear the input model
     this.searchResults = [];
   }
 }

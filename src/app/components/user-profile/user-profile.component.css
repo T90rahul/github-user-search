@@ -1,10 +1,8 @@
 .profile-dialog {
-    width: 80vw;
-    max-width: 800px;
     display: flex;
     flex-direction: column;
-    border-radius: 12px;
-    overflow: hidden;
+    border-radius: 5px;
+    /* overflow: hidden; */
 }
 
 .gradient-header {
@@ -110,30 +108,40 @@
 .custom-accordion {
     margin: 10px 0;
 }
+
 .panel-title {
     display: flex;
     align-items: center;
 }
+
 .panel-icon {
-    margin-right: 4px;
-   /* Adjust icon spacing */
+    margin-right: 3px;
+    margin-left: 2px;
+    color: #3f51b5;
 }
+
 .panel-text {
     margin: 0 2px;
-   /* 2px left-right margin for the title text */
+    /* 2px left-right margin for the title text */
 }
+
 .panel-count {
     margin-left: 4px;
-   /* Spacing between title and random number */
+    /* Spacing between title and random number */
     font-weight: bold;
     color: #555;
 }
+
 table {
     width: 100%;
 }
 
+mat-expansion-panel {
+    margin-bottom: 8px;
+}
 
-  
+
+
 
 @media (max-width: 600px) {
     .profile-dialog {

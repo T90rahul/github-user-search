@@ -40,7 +40,6 @@ export class GithubApiService {
 
    // Function to fetch the list of users a specific user is following
   getUserFollowing(username: string): Observable<any[]> {
-    debugger;
     const url = `${this.apiUrl}/${username}/following`;
     return this.http.get<any[]>(url);
   }

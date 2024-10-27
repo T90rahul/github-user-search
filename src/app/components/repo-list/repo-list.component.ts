@@ -10,16 +10,23 @@ import { Observable, Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, MatTableModule, MatIconModule],
   templateUrl: './repo-list.component.html',
-  styleUrls: ['./repo-list.component.css']
+  styleUrls: ['./repo-list.component.css'],
 })
 export class RepoListComponent {
-  username!:string;
-  displayedColumns: string[] = ['name', 'description', 'forks', 'watchers', 'updated_at', 'url'];
+  username!: string;
+  displayedColumns: string[] = [
+    'name',
+    'description',
+    'forks',
+    'watchers',
+    'updated_at',
+    'url',
+  ];
   dataSource: any[] = []; // Initialize as an empty array
+  errorMessage: string | null = null;
   private subscription: Subscription = new Subscription();
 
-  constructor(private githubApiService: GithubApiService) {
-  }
+  constructor(private githubApiService: GithubApiService) {}
 
   ngOnInit(): void {
     // Subscribe to username$
@@ -30,7 +37,7 @@ export class RepoListComponent {
         if (this.username) {
           this.fetchRepos(this.username);
         }
-      }
+      },
     });
   }
 
@@ -39,10 +46,23 @@ export class RepoListComponent {
     this.subscription.unsubscribe();
   }
 
-  fetchRepos(name:any){
-    this.githubApiService.getUserRepos(name).subscribe(repos => {
-      this.dataSource = repos; // Assign data to the dataSource
+  fetchRepos(name: any) {
+    this.githubApiService.getUserRepos(name).subscribe({
+      next: (repos) => {
+        if (repos && repos.length > 0) {
+          this.dataSource = repos; // Assign data to the dataSource if data is available
+          this.errorMessage = null; // Clear any previous error message
+        } else {
+          // No data found
+          this.errorMessage = 'No repositories available';
+          this.dataSource = []; // Clear dataSource in case of empty response
+        }
+      },
+      error: () => {
+        // Handle API error
+        this.errorMessage = 'Failed to fetch repository data';
+        this.dataSource = []; // Clear dataSource in case of error
+      },
     });
   }
 }
-

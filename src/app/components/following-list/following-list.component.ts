@@ -10,26 +10,30 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, MatTableModule, MatIconModule],
   templateUrl: './following-list.component.html',
-  styleUrl: './following-list.component.css'
+  styleUrl: './following-list.component.css',
 })
 export class FollowingListComponent {
-  displayedColumns: string[] = ['profilePhoto', 'name', 'followersCount', 'followingCount', 'profileLink'];
+  displayedColumns: string[] = [
+    'profilePhoto',
+    'name',
+    'profileLink',
+  ];
   dataSource: any[] = [];
-  username!:string
+  username!: string;
+
+  errorMessage: string | null = null;
   private subscription: Subscription = new Subscription();
 
-  constructor(private githubApiService: GithubApiService) {
-  }
+  constructor(private githubApiService: GithubApiService) {}
 
   ngOnInit(): void {
-    debugger;
     this.subscription = this.githubApiService.username$.subscribe({
       next: (name) => {
-        this.username = name; // Set the username in the component
+        this.username = name;
         if (this.username) {
           this.fetchFollowing(this.username);
         }
-      }
+      },
     });
   }
 
@@ -38,11 +42,23 @@ export class FollowingListComponent {
     this.subscription.unsubscribe();
   }
 
-  fetchFollowing(name :any){
-    debugger;
-    this.githubApiService.getUserFollowing(name).subscribe(following => {
-      this.dataSource = following;
-      console.log('datasource:', this.dataSource);
+  fetchFollowing(name: any) {
+    this.githubApiService.getUserFollowing(name).subscribe({
+      next: (following) => {
+        if (following && following.length > 0) {
+          this.dataSource = following;
+          this.errorMessage = null; // Clear any previous error message
+        } else {
+          // No data found
+          this.errorMessage = 'No data available';
+          this.dataSource = []; // Clear dataSource in case of empty response
+        }
+      },
+      error: () => {
+        // Handle API error
+        this.errorMessage = 'Failed to fetch following data';
+        this.dataSource = []; // Clear dataSource in case of error
+      },
     });
   }
 }

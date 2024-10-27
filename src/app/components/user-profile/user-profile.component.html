@@ -1,77 +1,81 @@
 <div class="profile-dialog">
-    <!-- Gradient Header Section -->
-    <div class="gradient-header">
-        <button mat-icon-button class="close-button" (click)="closeDialog()">
-            <mat-icon>close</mat-icon>
-          </button>
-    </div>
-  
-    <!-- Profile Details Section -->
-    <div class="profile-content">
-        <div class="profile-photo-container">
-          <img [src]="user.avatar_url" alt="User Avatar" class="profile-photo" />
-        </div>
-      
-        <div class="profile-details">
-          <h2>{{ user.name }}</h2>
-          <p class="position-info">{{ user.position }} at {{ user.company }}</p>
-          <p class="location-info">{{ user.location }}</p>
-        </div>
-      
-        <div class="action-button">
-            <button mat-button (click)="openUserProfile(user.html_url)">View Profile</button>
-        </div>
-      </div>
-      
-  
-    <!-- Additional Details Section -->
-    <mat-card class="additional-details">
-
-        <mat-accordion class="custom-accordion">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <span class="panel-title">
-                    <span class="panel-text">Repositories</span>
-                    <mat-icon class="panel-icon">folder_special</mat-icon>
-                    <span class="panel-count">{{user.public_repos}}</span>
-                  </span>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <app-repo-list></app-repo-list>
-            </mat-expansion-panel>
-          </mat-accordion>
-
-        <mat-accordion class="custom-accordion">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">
-                        <span class="panel-text">Followers</span>
-                        <mat-icon class="panel-icon">people</mat-icon>
-                        <span class="panel-count">{{user.followers}}</span>
-                      </span>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <app-followers-list></app-followers-list>
-            </mat-expansion-panel>
-          </mat-accordion>
-        
-          <!-- Accordion for Following -->
-          <mat-accordion class="custom-accordion">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="panel-title">
-                        <span class="panel-text">Following </span>
-                        <mat-icon class="panel-icon">person_add</mat-icon>
-                        <span class="panel-count">{{user.following}}</span>
-                      </span>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-    
-            </mat-expansion-panel>
-          </mat-accordion>
-    </mat-card>
+  <!-- Gradient Header Section -->
+  <div class="gradient-header">
+    <button mat-icon-button class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
-  
+
+  <!-- Profile Details Section -->
+  <div class="profile-content">
+    <div class="profile-photo-container">
+      <img [src]="user.avatar_url" alt="User Avatar" class="profile-photo" />
+    </div>
+
+    <div class="profile-details">
+      <h2>{{ user?.name || 'Name not available' }}</h2>
+      <p class="position-info">
+        {{ user?.position ? (user.position + ' at ' + user.company) : 'Position information not available' }}
+      </p>
+      <p class="location-info">
+        {{ user?.location || 'Location not available' }}
+      </p>
+    </div>
+
+    <div class="action-button">
+      <button mat-button (click)="openUserProfile(user.html_url)">View Profile</button>
+    </div>
+  </div>
+
+
+  <!-- Additional Details Section -->
+  <mat-card class="additional-details">
+
+    <!-- Accordion for Repositories -->
+    <mat-accordion class="custom-accordion" [multi]="false">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="panel-title">
+              <span class="panel-text">Repositories</span>
+              <mat-icon class="panel-icon">folder_special</mat-icon>
+              <span class="panel-count">{{user.public_repos}}</span>
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-repo-list></app-repo-list>
+      </mat-expansion-panel>
+
+      <!-- Accordion for Followers -->
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="panel-title">
+              <span class="panel-text">Followers</span>
+              <mat-icon class="panel-icon">people</mat-icon>
+              <span class="panel-count">{{user.followers}}</span>
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-followers-list></app-followers-list>
+      </mat-expansion-panel>
+
+
+      <!-- Accordion for Following -->
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="panel-title">
+              <span class="panel-text">Following </span>
+              <mat-icon class="panel-icon">person_add</mat-icon>
+              <span class="panel-count">{{user.following}}</span>
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-following-list></app-following-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+</div>
