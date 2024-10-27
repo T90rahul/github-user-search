@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
+
 @Component({
   selector: 'app-user-search',
   standalone: true,
@@ -28,7 +29,7 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
     MatCardModule,
   ],
   templateUrl: './user-search.component.html',
-  styleUrls: ['./user-search.component.scss'],
+  styleUrls: ['./user-search.component.css'],
 })
 export class UserSearchComponent {
   username: string = '';
@@ -94,7 +95,7 @@ export class UserSearchComponent {
   }
 
   clearInput() {
-    this.username = ''; // Clear the input model
+    this.username = '';
     this.searchResults = [];
   }
 }

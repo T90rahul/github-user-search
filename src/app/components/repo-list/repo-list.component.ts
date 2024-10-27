@@ -50,18 +50,16 @@ export class RepoListComponent {
     this.githubApiService.getUserRepos(name).subscribe({
       next: (repos) => {
         if (repos && repos.length > 0) {
-          this.dataSource = repos; // Assign data to the dataSource if data is available
-          this.errorMessage = null; // Clear any previous error message
+          this.dataSource = repos;
+          this.errorMessage = null; 
         } else {
-          // No data found
           this.errorMessage = 'No repositories available';
-          this.dataSource = []; // Clear dataSource in case of empty response
+          this.dataSource = [];
         }
       },
       error: () => {
-        // Handle API error
         this.errorMessage = 'Failed to fetch repository data';
-        this.dataSource = []; // Clear dataSource in case of error
+        this.dataSource = [];
       },
     });
   }

@@ -17,7 +17,7 @@ import { FollowingListComponent } from '../following-list/following-list.compone
 
 @Component({
   selector: 'app-user-profile',
-  standalone: true, // Angular 18 standalone component
+  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,
@@ -31,12 +31,11 @@ import { FollowingListComponent } from '../following-list/following-list.compone
     FollowingListComponent,
   ],
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
+  styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
   gradientStyle: string = '';
   username!: string;
-  activePanelIndex: number | null = null;
 
   private gradients = [
     'linear-gradient(135deg, #4e54c8, #8f94fb)',
@@ -52,9 +51,6 @@ export class UserProfileComponent implements OnInit {
     private githubApiService: GithubApiService
   ) {}
 
-  togglePanel(index: number) {
-    this.activePanelIndex = this.activePanelIndex === index ? null : index;
-  }
 
   ngOnInit(): void {
     this.setRandomGradient();
@@ -67,7 +63,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   openUserProfile(username: any) {
-    window.open(username, '_blank'); // Open profile in a new tab
+    window.open(username, '_blank'); 
   }
 
   closeDialog() {

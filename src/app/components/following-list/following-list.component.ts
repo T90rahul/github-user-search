@@ -38,7 +38,6 @@ export class FollowingListComponent {
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe to prevent memory leaks
     this.subscription.unsubscribe();
   }
 
@@ -47,17 +46,15 @@ export class FollowingListComponent {
       next: (following) => {
         if (following && following.length > 0) {
           this.dataSource = following;
-          this.errorMessage = null; // Clear any previous error message
+          this.errorMessage = null;
         } else {
-          // No data found
           this.errorMessage = 'No data available';
-          this.dataSource = []; // Clear dataSource in case of empty response
+          this.dataSource = []; 
         }
       },
       error: () => {
-        // Handle API error
         this.errorMessage = 'Failed to fetch following data';
-        this.dataSource = []; // Clear dataSource in case of error
+        this.dataSource = [];
       },
     });
   }

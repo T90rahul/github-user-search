@@ -1,10 +1,5 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -17,7 +12,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, MatTableModule, MatIconModule],
   templateUrl: './followers.component.html',
-  styleUrls: ['./followers.component.scss'],
+  styleUrls: ['./followers.component.css'],
 })
 export class FollowerListComponent {
   followers: any = [];
@@ -33,7 +28,6 @@ export class FollowerListComponent {
   constructor(private githubApiService: GithubApiService) {}
 
   ngOnInit(): void {
-    // Subscribe to username changes
     this.subscription = this.githubApiService.username$.subscribe({
       next: (username) => {
         if (username) {
@@ -50,9 +44,6 @@ export class FollowerListComponent {
           this.followers = data.map((follower) => ({
             profilePhoto: follower.avatar_url,
             name: follower.login,
-            followersCount: this.getFollowersCount(follower.followers_url),
-            followingCount: this.getFollowingCount(follower.following_url),
-            reposCount: this.getReposCount(follower.repos_url),
             profileUrl: follower.html_url,
           }));
           this.errorMessage = null;
@@ -66,26 +57,7 @@ export class FollowerListComponent {
     });
   }
 
-  // this is the count of follower's follower
-  getFollowersCount(url: string) {
-    this.githubApiService.getCount(url).subscribe((count) => {
-      return count;
-    });
-  }
-
-  getFollowingCount(url: string) {
-    this.githubApiService.getCount(url).subscribe((count) => {
-      return count;
-    });
-  }
-
-  getReposCount(url: string) {
-    this.githubApiService.getCount(url).subscribe((count) => {
-      return count;
-    });
-  }
-
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); // Clean up subscription
+    this.subscription.unsubscribe();
   }
 }
