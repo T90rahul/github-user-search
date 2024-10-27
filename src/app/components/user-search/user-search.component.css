@@ -7,14 +7,18 @@
 }
 
 .logo-image {
-    width: 150px;
+    width: 400px;
     margin-bottom: 20px;
+    background: thistle;
+    content: '';
+    z-index: -1;
+    border-radius: 45% 15% 37% 11%;
 }
 
 
 .search-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 750px;
 }
 
 .search-bar {
@@ -31,8 +35,103 @@
 }
 
 .result-card {
-    width: 100%;
-    margin: 10px 0;
+    display: flex;
     padding: 15px;
-    text-align: left;
+    width: 100%;
+    max-width: 600px;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #f7f8fc, #e3e6f1);
+    /* Soft blue-gray gradient */
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    /* Premium shadow for depth */
+
+    .card-content {
+        display: flex;
+        width: 100%;
+    }
+
+    .see-details{
+        cursor: pointer;
+    }
+
+    /* Left Section for Image and Icons */
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 45%;
+    }
+
+    /* Circular User Image */
+    .image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #d9e4fc;
+        /* Soft blue circular background */
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+        /* Space between image and icons */
+    }
+
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+
+    /* Icons Below Image */
+    .icon-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .view-details {
+        display: flex;
+        gap: 10px;
+
+    }
+
+    .icon-item {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: #555;
+
+        mat-icon {
+            font-size: 21px;
+            margin-right: 1px;
+            color: #3f51b5;
+        }
+    }
+
+    /* Right Section: User Details */
+    .details-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 20px;
+    }
+
+    .user-info {
+        display: flex;
+        margin-bottom: 8px;
+
+        .info-label {
+            font-weight: bold;
+            width: 80px;
+        }
+
+        .info-value {
+            flex: 1;
+            overflow-wrap: break-word;
+        }
+    }
 }

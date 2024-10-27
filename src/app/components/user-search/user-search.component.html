@@ -1,26 +1,77 @@
 <div class="search-page">
+    <img src="assets/logo.png" alt="Logo" class="logo-image" />
 
-
-    <!-- Centered Image Above the Search Bar -->
-    <img src="./assets/logo.png" alt="Logo" class="logo-image" />
-
+    <!-- Search Bar with Disabled Icon on Empty Input -->
     <div class="search-container">
         <mat-form-field appearance="outline" class="search-bar">
             <mat-label>Search GitHub Username</mat-label>
-            <input matInput [(ngModel)]="username" placeholder="Enter GitHub username" (keyup.enter)="searchUser()" />
-            <button mat-icon-button matSuffix (click)="searchUser()">
+            <input matInput [(ngModel)]="username" placeholder="Enter GitHub username" (keyup.enter)="onSearch()"/>
+
+            <!-- Cancel icon to clear input -->
+        <button *ngIf="username" mat-icon-button matSuffix (click)="clearInput()">
+            <mat-icon>clear</mat-icon>
+        </button>
+
+            <button mat-icon-button matSuffix (click)="onSearch()" [disabled]="!username">
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
+        <mat-error *ngIf="showErrorMessage">{{ errorMessage }}</mat-error>
+    </div>
+
+    <!-- Loader shown during API call -->
+    <div *ngIf="showLoader" class="loader-container">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
 
     <div *ngIf="searchResults.length > 0" class="results-container">
         <mat-card *ngFor="let result of searchResults" class="result-card">
-            <mat-card-title>{{ result.login }}</mat-card-title>
-            <mat-card-content>
-                <p>{{ result.bio || 'No bio available' }}</p>
-                <button mat-button color="accent" (click)="viewProfile(result.login)">View Profile</button>
-            </mat-card-content>
+            <div class="card-content">
+                <!-- Left Section with Circular Image and Icons -->
+                <div class="left-section">
+                    <div class="image-container">
+                        <img [src]="result.avatar_url" alt="User Avatar" class="user-avatar" />
+                    </div>
+
+                    <!-- Icons for Followers and Following below the Image Container -->
+                    <div class="icon-container">
+                        <div class="icon-item">
+                            <mat-icon>group</mat-icon>
+                            <span>{{ result.followers || 0 }} Followers</span>
+                        </div>
+                        <div class="icon-item">
+                            <mat-icon>person_add</mat-icon>
+                            <span>{{ result.following || 0 }} Following</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Section with User Details -->
+                <div class="details-container">
+                    <div class="user-info">
+                        <div class="info-label">Name:</div>
+                        <div class="info-value">{{ result.name || 'N/A' }}</div>
+                    </div>
+                    <div class="user-info">
+                        <div class="info-label">Company:</div>
+                        <div class="info-value">{{ result.company || 'N/A' }}</div>
+                    </div>
+                    <div class="user-info">
+                        <div class="info-label">Location:</div>
+                        <div class="info-value">{{ result.location || 'N/A' }}</div>
+                    </div>
+                    <div class="user-info see-details">
+                        <div class="icon-item" (click)="viewProfile(result.login)">
+                            <mat-icon>pageview</mat-icon>
+                            <span>view-details</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </mat-card>
     </div>
+
+
+
 </div>

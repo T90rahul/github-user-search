@@ -3,32 +3,31 @@ import { GithubApiService } from '../../core/services/github-api.service';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-repo-list',
+  selector: 'app-following-list',
   standalone: true,
   imports: [CommonModule, MatTableModule, MatIconModule],
-  templateUrl: './repo-list.component.html',
-  styleUrls: ['./repo-list.component.css']
+  templateUrl: './following-list.component.html',
+  styleUrl: './following-list.component.css'
 })
-export class RepoListComponent {
-  username!:string;
-  displayedColumns: string[] = ['name', 'description', 'forks', 'watchers', 'updated_at', 'url'];
-  dataSource: any[] = []; // Initialize as an empty array
+export class FollowingListComponent {
+  displayedColumns: string[] = ['profilePhoto', 'name', 'followersCount', 'followingCount', 'profileLink'];
+  dataSource: any[] = [];
+  username!:string
   private subscription: Subscription = new Subscription();
 
   constructor(private githubApiService: GithubApiService) {
   }
 
   ngOnInit(): void {
-    // Subscribe to username$
+    debugger;
     this.subscription = this.githubApiService.username$.subscribe({
       next: (name) => {
         this.username = name; // Set the username in the component
-        this.username = name; // Set the username in the component
         if (this.username) {
-          this.fetchRepos(this.username);
+          this.fetchFollowing(this.username);
         }
       }
     });
@@ -39,10 +38,11 @@ export class RepoListComponent {
     this.subscription.unsubscribe();
   }
 
-  fetchRepos(name:any){
-    this.githubApiService.getUserRepos(name).subscribe(repos => {
-      this.dataSource = repos; // Assign data to the dataSource
+  fetchFollowing(name :any){
+    debugger;
+    this.githubApiService.getUserFollowing(name).subscribe(following => {
+      this.dataSource = following;
+      console.log('datasource:', this.dataSource);
     });
   }
 }
-

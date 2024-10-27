@@ -1,1 +1,47 @@
-<p>repo-list works!</p>
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+    <!-- Repo Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Repo Name </th>
+      <td mat-cell *matCellDef="let repo"> {{ repo.name }} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let repo"> {{ repo.description || 'No description' }} </td>
+    </ng-container>
+
+    <!-- Fork Count Column -->
+    <ng-container matColumnDef="forks">
+      <th mat-header-cell *matHeaderCellDef> Forks </th>
+      <td mat-cell *matCellDef="let repo"> {{ repo.forks_count }} </td>
+    </ng-container>
+
+    <!-- Watcher Count Column -->
+    <ng-container matColumnDef="watchers">
+      <th mat-header-cell *matHeaderCellDef> Watchers </th>
+      <td mat-cell *matCellDef="let repo"> {{ repo.watchers_count }} </td>
+    </ng-container>
+
+    <!-- Updated Date Column -->
+    <ng-container matColumnDef="updated_at">
+      <th mat-header-cell *matHeaderCellDef> Updated Date </th>
+      <td mat-cell *matCellDef="let repo"> {{ repo.updated_at | date:'medium' }} </td>
+    </ng-container>
+
+    <!-- Repo URL Column with Link Icon -->
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> Link </th>
+      <td mat-cell *matCellDef="let repo">
+        <a [href]="repo.html_url" target="_blank">
+          <mat-icon>link</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
